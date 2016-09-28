@@ -1,0 +1,58 @@
+html{
+	--main-bg: transparent;
+}
+
+h1 {
+    font-size: 15px;
+}
+
+table {
+    border-collapse: collapse;
+    width: inherit;
+}
+
+.data_table_div, .data_options, .header_div{
+	background-color: var(--main-bg); 
+	width: 400px;
+	margin-left: 40px;
+}
+
+.header_div{
+	margin-top: 20px;
+}
+
+th,td,.new_item {
+    text-align: center;
+}
+
+table:not(.option_cell), tr.header_row{
+    border: 1px solid gray;
+}
+
+td:not(.option_cell, .new_item){
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.new_item{
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+
+.new_item{
+	border: none;
+	background-color: grey;
+	opacity: 0.2;
+	width: fill;
+}
+
+.option_button{
+	background-color: rgba(218, 200, 250, 0.2);
+	border-radius: 5px;
+	border: .5px solid rgba(218, 200, 250, .5);
+}
+
+.data_options{
+
+}

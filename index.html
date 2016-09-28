@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" href="font-awesome-4.6.3/css/font-awesome.min.css">
+<link rel="stylesheet" href="mystyle.css">
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script src="angular.min.js"></script>
+<head>
+<script src="ItemController.js"></script>
+</head>
+<body>
+<div ng-app="myApp" ng-controller="tableDataCtrl">
+	<div class="header_div">
+		<h2>{{myHeader}}</h2>
+		<h2>The time is {{theTime}}</h2>
+	</div>
+	<div class="data_options">
+		Item Options
+		<input type="checkbox" name="removable" ng-model="item_options.removable_items">Remove</input>
+	    <input type="checkbox" name="editable" ng-model="item_options.editable_items">Edit</input>
+	    <input type="checkbox" name="addable" ng-model="item_options.addable_items">Add</input>
+	    <input type="checkbox" name="sortable" ng-model="item_options.sortable_items">Sort</input>
+	    <input type="checkbox" name="searchable" ng-model="item_options.searchable_items">Search</input>
+	</div>
+	<div class="data_table_div">
+		<div ng-show="item_options.searchable_items" >
+			<text>Search By: </text>
+			<select ng-model="attr">
+				<option ng-repeat="attribute in attr_choices">{{attribute}}</option>
+			</select>
+			<input type="text" placeholder="Search" ng-model="search"></input>
+		</div> <!-- Search By -->
+		<br>
+		<table class="data_table">
+			<tr class="header_row">
+				<th ng-repeat="attribute in attr_choices">
+					{{attribute}}
+				</th>
+				<th class="option_cell" ng-show="item_options.removable_items" ></th>
+				<th class="option_cell" ng-show="item_options.editable_items" ></th>
+			</tr>
+			<tr ng-repeat="object in object_array | searchFilteredByAttr:search:attr  | orderBy: sort">			
+				<td class="data_cell" ng-show="!object_array_edit[object_array.indexOf(object)][attribute]" ng-repeat="attribute in attr_choices">
+		    		{{object[attribute]}}
+		  		</td>
+		  		<td class="data_cell" ng-show="object_array_edit[object_array.indexOf(object)][attribute]" ng-repeat="attribute in attr_choices">
+		    		<input class="new_item" ng-model="object[attribute]"></input>
+		  		</td>
+		  		<td class="option_cell" ng-show="item_options.editable_items" >
+					<button class="option_button" ng-click="editObject(object)">
+						<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+					</button>
+				</td>
+				<td class="option_cell" ng-show="item_options.removable_items">
+					<button class="option_button" ng-click="removeObject(object)">
+						<i class="fa fa-trash" aria-hidden="true"></i>
+					</button>
+				</td>
+			</tr>
+
+			<tr ng-show="item_options.addable_items" >
+				<form ng-submit="addObject(new_object)">
+					<td ng-repeat="attribute in attr_choices">
+						<input class="new_item" type="text" ng-model="new_object[attribute]" required/>
+					</td>
+					<td>
+						<button class="option_button" type="submit">
+							<i class="fa fa-plus-circle" aria-hidden="true"></i>
+						</button>
+					</td>
+					<td></td>
+				</form>
+			</tr> <!-- Add Item -->
+
+		</table>
+		<br>
+		<div ng-show="item_options.sortable_items" >
+			<text>Sort By: </text>
+			<select ng-model="sort">
+				<option ng-repeat="attribute in attr_choices">{{attribute}}</option>		
+			</select>
+		</div> <!-- Sort By -->
+	</div> <!-- Data Table Div --> 
+	<br>
+
+	
+
+</div> <!-- My App -->
+
+</body>
+
+
+</html>
